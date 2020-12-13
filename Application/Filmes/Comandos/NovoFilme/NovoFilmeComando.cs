@@ -1,10 +1,16 @@
-﻿using Domain.Filmes;
+﻿using Application.Interfaces;
+using Domain.Filmes;
 using Domain.Filmes.ValueObjects;
 
 namespace Application.Filmes.Comandos.NovoFilme
 {
     public sealed class NovoFilmeComando : INovoFilmeComando
     {
+        private readonly IFilmesRepositorio _filmesRepositorio;
+
+        public NovoFilmeComando(IFilmesRepositorio filmesRepositorio) =>
+            _filmesRepositorio = filmesRepositorio;
+
         public bool Executar(NovoFilmeDto dto, out string mensagem)
         {
             var nome = Nome.Criar(dto.Nome, out var sucesso);
@@ -23,8 +29,8 @@ namespace Application.Filmes.Comandos.NovoFilme
 
             var filme = Filme.Novo(nome, descricao);
 
-            mensagem = string.Empty;
-            return true;
+            return _filmesRepositorio
+                .Adicionar(filme, out mensagem);
         }
     }
 }
