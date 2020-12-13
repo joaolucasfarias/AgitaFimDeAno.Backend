@@ -77,3 +77,26 @@ stages:
               azureSubscription: 'AgitaFimDeAno - App Service Backend - Test'
               appName: '$(WebAppApi)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+- stage: 'Deploy'
+  displayName: 'Deploy para produção'
+  dependsOn: Test
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'windows-latest'
+    environment: prod-backend
+    variables:
+    - group: Producao
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Deploy para o web app da API'
+            inputs:
+              azureSubscription: 'AgitaFimDeAno - App Service Backend - Prod'
+              appName: '$(WebAppApi)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
