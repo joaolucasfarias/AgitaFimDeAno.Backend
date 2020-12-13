@@ -1,5 +1,7 @@
 ﻿using Application.Filmes.Comandos.NovoFilme;
+using Application.Filmes.Consultas.ListasFilmes;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace WebApi.Filmes
 {
@@ -7,21 +9,29 @@ namespace WebApi.Filmes
     [ApiController]
     public class FilmesController : ControllerBase
     {
-        private readonly INovoFilmeComando _novoFilmeComando;
+        private readonly INovoFilmeComando _novoFilme;
+        private readonly IListarFilmesConsulta _listarFilmes;
 
-        public FilmesController(INovoFilmeComando novoFilmeComando)
+        public FilmesController(
+            INovoFilmeComando novoFilme,
+            IListarFilmesConsulta listarFilmes)
         {
-            _novoFilmeComando = novoFilmeComando;
+            _novoFilme = novoFilme;
+            _listarFilmes = listarFilmes;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] NovoFilmeDto dto)
+        public IActionResult NovoFilme([FromBody] NovoFilmeDto dto)
         {
-            var resultado = _novoFilmeComando.Executar(dto, out var mensagem);
+            var resultado = _novoFilme.Executar(dto, out var mensagem);
             if (resultado)
                 return Ok(mensagem);
 
             return BadRequest(mensagem);
         }
+
+        [HttpGet]
+        public IEnumerable<ListarFilmesDto> ListarFilmes() =>
+            _listarFilmes.Executar();
     }
 }

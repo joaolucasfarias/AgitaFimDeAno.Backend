@@ -1,4 +1,5 @@
 using Application.Filmes.Comandos.NovoFilme;
+using Application.Filmes.Consultas.ListasFilmes;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,9 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<INovoFilmeComando, NovoFilmeComando>();
+
+            services.AddSingleton<IListarFilmesConsulta, ListarFilmesConsulta>();
+
             services.AddSingleton<IFilmesRepositorio, FilmesRepositorio>();
 
             services.AddControllers();
