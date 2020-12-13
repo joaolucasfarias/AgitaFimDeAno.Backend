@@ -10,7 +10,7 @@ namespace Domain.Filmes
         public Descricao Descricao { get; private set; }
 
         public void ModificarId(int novoId) =>
-            Id = Id;
+            Id = novoId;
 
         public void Editar(Filme filme)
         {
