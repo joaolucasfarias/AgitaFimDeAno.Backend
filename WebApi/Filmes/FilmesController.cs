@@ -19,7 +19,7 @@ namespace WebApi.Filmes
         {
             var resultado = _novoFilmeComando.Executar(dto, out var mensagem);
             if (resultado)
-                return Ok();
+                return Ok(mensagem);
 
             return BadRequest(mensagem);
         }
