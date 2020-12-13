@@ -4,26 +4,76 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- main
-
-pool:
-  vmImage: 'windows-latest'
+  branches:
+    include:
+      - main
+pr: none
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+- stage: 'Build'
+  displayName: 'Backend: build'
+  jobs: 
+  - job: 'Build'
+    displayName: 'Build job'
+    pool:
+      vmImage: 'windows-latest'
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+    variables:
+      dotnetSdkVersion: '3.1.100'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Usando .NET Core SDK $(dotnetSdkVersion)'
+      inputs:
+        version: '$(dotnetSdkVersion)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restaurando dependências do projeto'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Buildando o projeto como $(buildConfiguration)'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+        projects: '**/*.csproj'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Publicando o projeto como $(buildConfiguration)'
+      inputs:
+        command: 'publish'
+        projects: '**/*.WebApi.csproj'
+        publishWebProjects: false
+        arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+        zipAfterPublish: true
+
+    - publish: '$(Build.ArtifactStagingDirectory)'
+      artifact: drop
+      
+- stage: 'Test'
+  displayName: 'Deploy para testes'
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'windows-latest'
+    environment: tests-backend
+    variables:
+    - group: Testes
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Deploy para o web app da API'
+            inputs:
+              azureSubscription: 'DeliveryBr - App Service Test'
+              appName: '$(WebAppApi)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
