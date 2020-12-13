@@ -47,7 +47,7 @@ stages:
       displayName: 'Publicando o projeto como $(buildConfiguration)'
       inputs:
         command: 'publish'
-        projects: '**/*.WebApi.csproj'
+        projects: '**/*WebApi.csproj'
         publishWebProjects: false
         arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
         zipAfterPublish: true
