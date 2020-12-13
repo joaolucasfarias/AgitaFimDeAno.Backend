@@ -14,12 +14,12 @@ namespace Persistence.Comum
 
         public abstract bool Adicionar(T objeto, out string mensagem);
 
-        public abstract bool Editar(T objet, out string mensagem);
+        public abstract bool Editar(T objeto, out string mensagem);
 
         public abstract bool Excluir(int id, out string mensagem);
 
         public abstract IEnumerable<T> Listar();
 
-        public abstract T Carregar(int id);
+        public abstract T Carregar(int id, out string mensagem);
     }
 }

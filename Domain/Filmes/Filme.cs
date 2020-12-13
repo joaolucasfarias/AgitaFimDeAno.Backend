@@ -1,13 +1,22 @@
-﻿using System;
-using Domain.Comum;
+﻿using Domain.Comum;
 using Domain.Filmes.ValueObjects;
+using System;
 
 namespace Domain.Filmes
 {
     public sealed class Filme : AggregateRoot
     {
-        public Nome Nome { get; }
-        public Descricao Descricao { get; }
+        public Nome Nome { get; private set; }
+        public Descricao Descricao { get; private set; }
+
+        public void ModificarId(int novoId) =>
+            Id = Id;
+
+        public void Editar(Filme filme)
+        {
+            Nome = filme.Nome;
+            Descricao = filme.Descricao;
+        }
 
         private Filme(int id) : base(id)
         {

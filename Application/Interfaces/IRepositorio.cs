@@ -7,12 +7,12 @@ namespace Application.Interfaces
     {
         bool Adicionar(T objeto, out string mensagem);
 
-        bool Editar(T objet, out string mensagem);
+        bool Editar(T objeto, out string mensagem);
 
         bool Excluir(int id, out string mensagem);
 
         IEnumerable<T> Listar();
 
-        T Carregar(int id);
+        T Carregar(int id, out string mensagem);
     }
 }
