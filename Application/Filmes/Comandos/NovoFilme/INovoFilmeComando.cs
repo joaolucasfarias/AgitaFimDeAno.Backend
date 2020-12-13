@@ -1,6 +1,6 @@
 ﻿namespace Application.Filmes.Comandos.NovoFilme
 {
-    interface INovoFilmeComando
+    public interface INovoFilmeComando
     {
         bool Executar(NovoFilmeDto dto, out string mensagem);
     }
