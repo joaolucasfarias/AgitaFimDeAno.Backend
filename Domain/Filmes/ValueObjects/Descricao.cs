@@ -3,36 +3,36 @@ using System;
 
 namespace Domain.Filmes.ValueObjects
 {
-    public sealed class Nome : ValueObject<Nome>
+    public class Descricao : ValueObject<Descricao>
     {
         public string Valor { get; }
 
-        private Nome(string valor) =>
+        private Descricao(string valor) =>
             Valor = valor;
 
-        private Nome()
+        private Descricao()
         {
         }
 
-        public static Nome Criar(string valor, out bool sucesso)
+        public static Descricao Criar(string valor, out bool sucesso)
         {
-            if (string.IsNullOrWhiteSpace(valor) || valor.Length > 100)
+            if (string.IsNullOrWhiteSpace(valor) || valor.Length > 3000)
             {
                 sucesso = false;
-                return new Nome();
+                return new Descricao();
             }
 
             sucesso = true;
-            return new Nome(valor);
+            return new Descricao(valor);
         }
 
         public override string ToString() =>
             Valor;
 
-        public static implicit operator string(Nome objeto) =>
+        public static implicit operator string(Descricao objeto) =>
             objeto.Valor;
 
-        public static explicit operator Nome(string valor)
+        public static explicit operator Descricao(string valor)
         {
             var resultado = Criar(valor, out var sucesso);
 
