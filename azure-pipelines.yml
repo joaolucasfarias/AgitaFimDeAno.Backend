@@ -74,7 +74,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy para o web app da API'
             inputs:
-              azureSubscription: 'AgitaFimDeAno - App Service Backend - Test'
+              azureSubscription: 'App Service Backend'
               appName: '$(WebAppApi)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
@@ -97,6 +97,6 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy para o web app da API'
             inputs:
-              azureSubscription: 'AgitaFimDeAno - App Service Backend - Prod'
+              azureSubscription: 'App Service Backend'
               appName: '$(WebAppApi)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
