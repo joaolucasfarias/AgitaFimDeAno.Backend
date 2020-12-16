@@ -15,8 +15,14 @@ namespace Application.Filmes.Consultas.ListasFilmes
             _filmesRepositorio.Listar().Select(f =>
                     new ListarFilmesDto
                     {
-                        Nome = f.Nome,
-                        Descricao = f.Descricao
+                        Id = f.Id,
+                        Titulo = f.Nome,
+                        UrlFoto = f.Foto,
+                        DtLancamento = f.DataDeLancamento,
+                        Descricao = f.Descricao,
+                        Nota = f.Nota,
+                        UrlImbd = f.PerfilNoImdb,
+                        Genero = f.Genero
                     })
                 .ToList();
     }

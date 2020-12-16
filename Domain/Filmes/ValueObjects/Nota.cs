@@ -1,4 +1,5 @@
 ﻿using Domain.Comum;
+using System;
 
 namespace Domain.Filmes.ValueObjects
 {
@@ -23,6 +24,19 @@ namespace Domain.Filmes.ValueObjects
 
             sucesso = true;
             return new Nota(valor);
+        }
+
+        public static implicit operator decimal(Nota objeto) =>
+            objeto.Valor;
+
+        public static explicit operator Nota(decimal valor)
+        {
+            var resultado = Criar(valor, out var sucesso);
+
+            if (!sucesso)
+                throw new InvalidCastException($"Falha ao converter {valor}");
+
+            return resultado;
         }
     }
 }
