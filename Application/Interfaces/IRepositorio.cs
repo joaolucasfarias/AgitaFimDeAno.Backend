@@ -10,8 +10,6 @@ namespace Application.Interfaces
 
         bool Editar(T objeto);
 
-        bool Excluir(int id);
-
         IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         T Carregar(int id);

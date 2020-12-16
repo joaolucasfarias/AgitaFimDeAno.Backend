@@ -26,18 +26,6 @@ namespace Persistence.Filmes
             return true;
         }
 
-        public override bool Excluir(int id)
-        {
-            if (id == 0)
-                return false;
-
-            var filme = Filmes.FirstOrDefault(f => f.Id == id);
-            if (filme is null)
-                return false;
-
-            return Filmes.Remove(filme);
-        }
-
         public override IEnumerable<Filme> Listar(ParametrosDePesquisa parametrosDePesquisa)
         {
             var filmes = Filmes as IEnumerable<Filme>;

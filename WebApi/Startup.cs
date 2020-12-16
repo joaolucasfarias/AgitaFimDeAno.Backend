@@ -1,5 +1,4 @@
 using Application.Filmes.Comandos.EditarFilme;
-using Application.Filmes.Comandos.ExcluirFilme;
 using Application.Filmes.Comandos.NovoFilme;
 using Application.Filmes.Consultas.ListasFilmes;
 using Application.Filmes.Consultas.VisualizarFilme;
@@ -27,7 +26,6 @@ namespace WebApi
         {
             services.AddTransient<INovoFilmeComando, NovoFilmeComando>();
             services.AddTransient<IEditarFilmeComando, EditarFilmeComando>();
-            services.AddTransient<IExcluirFilmeComando, ExcluirFilmeComando>();
 
             services.AddSingleton<IListarFilmesConsulta, ListarFilmesConsulta>();
             services.AddSingleton<IVisualizarFilmeConsulta, VisualizarFilmeConsulta>();

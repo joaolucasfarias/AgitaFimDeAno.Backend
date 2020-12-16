@@ -18,8 +18,6 @@ namespace Persistence.Comum
 
         public abstract bool Editar(T objeto);
 
-        public abstract bool Excluir(int id);
-
         public abstract IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         public abstract T Carregar(int id);
