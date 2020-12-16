@@ -48,7 +48,7 @@ namespace Application.Filmes.Comandos.NovoFilme
                 return false;
             }
 
-            var imdb = Url.Criar(dto.UrlImbd, out sucesso);
+            var imdb = Url.Criar(dto.UrlImdb, out sucesso);
             if (!sucesso)
             {
                 mensagem = "A URL do IMDB não foi enviada corretamente.";
