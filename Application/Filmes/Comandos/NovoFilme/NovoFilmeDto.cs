@@ -1,8 +1,15 @@
-﻿namespace Application.Filmes.Comandos.NovoFilme
+﻿using System;
+
+namespace Application.Filmes.Comandos.NovoFilme
 {
     public sealed class NovoFilmeDto
     {
-        public string Nome { get; set; }
+        public string Titulo { get; set; }
+        public string UrlFoto { get; set; }
+        public DateTime DtLancamento { get; set; }
         public string Descricao { get; set; }
+        public decimal Nota { get; set; }
+        public string UrlImbd { get; set; }
+        public string Genero { get; set; }
     }
 }

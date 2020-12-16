@@ -3,33 +3,33 @@ using System;
 
 namespace Domain.Filmes.ValueObjects
 {
-    public sealed class Data : ValueObject<Data>
+    public sealed class DataDeLancamento : ValueObject<DataDeLancamento>
     {
         public DateTime Valor { get; }
 
-        private Data(DateTime valor) =>
+        private DataDeLancamento(DateTime valor) =>
             Valor = valor;
 
-        private Data()
+        private DataDeLancamento()
         {
         }
 
-        public static Data Criar(DateTime valor, out bool sucesso)
+        public static DataDeLancamento Criar(DateTime valor, out bool sucesso)
         {
             if (valor == DateTime.MinValue || valor == DateTime.MaxValue)
             {
                 sucesso = false;
-                return new Data();
+                return new DataDeLancamento();
             }
 
             sucesso = true;
-            return new Data(valor);
+            return new DataDeLancamento(valor);
         }
 
-        public static implicit operator DateTime(Data objeto) =>
+        public static implicit operator DateTime(DataDeLancamento objeto) =>
             objeto.Valor;
 
-        public static explicit operator Data(DateTime valor)
+        public static explicit operator DataDeLancamento(DateTime valor)
         {
             var resultado = Criar(valor, out var sucesso);
 

@@ -8,7 +8,7 @@ namespace Domain.Filmes
     {
         public Nome Nome { get; private set; }
         public Url Foto { get; private set; }
-        public Data DataDeLancamento { get; private set; }
+        public DataDeLancamento DataDeLancamento { get; private set; }
         public Descricao Descricao { get; private set; }
         public Nota Nota { get; private set; }
         public Url PerfilNoImdb { get; private set; }
@@ -28,7 +28,7 @@ namespace Domain.Filmes
             Genero = outro.Genero;
         }
 
-        private Filme(Nome nome, Url foto, Data dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero) : base(0)
+        private Filme(Nome nome, Url foto, DataDeLancamento dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero) : base(0)
         {
             Nome = nome;
             Foto = foto;
@@ -39,7 +39,7 @@ namespace Domain.Filmes
             Genero = genero;
         }
 
-        public static Filme Novo(Nome nome, Url foto, Data dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero)
+        public static Filme Novo(Nome nome, Url foto, DataDeLancamento dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero)
         {
             if (nome is null)
                 throw new ArgumentNullException(nameof(nome));
