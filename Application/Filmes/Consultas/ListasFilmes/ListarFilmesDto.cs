@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Application.Filmes.Consultas.ListasFilmes
 {
@@ -10,6 +11,8 @@ namespace Application.Filmes.Consultas.ListasFilmes
         public DateTime DtLancamento { get; set; }
         public string Descricao { get; set; }
         public decimal Nota { get; set; }
+
+        [JsonPropertyName("urlIMDb")]
         public string UrlImdb { get; set; }
         public string Genero { get; set; }
     }
