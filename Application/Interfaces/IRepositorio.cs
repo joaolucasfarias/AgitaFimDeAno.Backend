@@ -5,14 +5,14 @@ namespace Application.Interfaces
 {
     public interface IRepositorio<T> where T : AggregateRoot
     {
-        bool Adicionar(T objeto, out string mensagem);
+        bool Adicionar(T objeto);
 
-        bool Editar(T objeto, out string mensagem);
+        bool Editar(T objeto);
 
-        bool Excluir(int id, out string mensagem);
+        bool Excluir(int id);
 
         IEnumerable<T> Listar();
 
-        T Carregar(int id, out string mensagem);
+        T Carregar(int id);
     }
 }

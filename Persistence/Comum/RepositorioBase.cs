@@ -12,14 +12,14 @@ namespace Persistence.Comum
         protected RepositorioBase() =>
             Filmes ??= new List<Filme>();
 
-        public abstract bool Adicionar(T objeto, out string mensagem);
+        public abstract bool Adicionar(T objeto);
 
-        public abstract bool Editar(T objeto, out string mensagem);
+        public abstract bool Editar(T objeto);
 
-        public abstract bool Excluir(int id, out string mensagem);
+        public abstract bool Excluir(int id);
 
         public abstract IEnumerable<T> Listar();
 
-        public abstract T Carregar(int id, out string mensagem);
+        public abstract T Carregar(int id);
     }
 }

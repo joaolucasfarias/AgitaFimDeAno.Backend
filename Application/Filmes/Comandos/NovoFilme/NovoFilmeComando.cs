@@ -29,8 +29,13 @@ namespace Application.Filmes.Comandos.NovoFilme
 
             var filme = Filme.Novo(nome, descricao);
 
-            return _filmesRepositorio
-                .Adicionar(filme, out mensagem);
+            sucesso = _filmesRepositorio.Adicionar(filme);
+            
+            mensagem = sucesso
+                ? "Filme adicionado com sucesso."
+                : "Erro ao adicionar o filme.";
+
+            return sucesso;
         }
     }
 }
