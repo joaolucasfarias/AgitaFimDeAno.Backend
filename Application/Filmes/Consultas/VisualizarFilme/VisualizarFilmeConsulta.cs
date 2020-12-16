@@ -9,7 +9,7 @@ namespace Application.Filmes.Consultas.VisualizarFilme
         public VisualizarFilmeConsulta(IFilmesRepositorio repositorio) =>
             _repositorio = repositorio;
 
-        public VisualizarFilmeDto Exetuar(int id, out bool sucesso)
+        public VisualizarFilmeDto Executar(int id, out bool sucesso)
         {
             var filme = _repositorio.Carregar(id);
             if (filme is null)

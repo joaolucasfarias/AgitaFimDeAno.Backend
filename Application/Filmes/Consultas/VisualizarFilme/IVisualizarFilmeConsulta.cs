@@ -2,6 +2,6 @@
 {
     public interface IVisualizarFilmeConsulta
     {
-        VisualizarFilmeDto Exetuar(int id, out bool sucesso);
+        VisualizarFilmeDto Executar(int id, out bool sucesso);
     }
 }

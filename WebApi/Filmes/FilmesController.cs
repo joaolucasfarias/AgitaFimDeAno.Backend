@@ -1,4 +1,5 @@
 ﻿using Application.Filmes.Comandos.EditarFilme;
+using Application.Filmes.Comandos.ExcluirFilme;
 using Application.Filmes.Comandos.NovoFilme;
 using Application.Filmes.Consultas.ListasFilmes;
 using Application.Filmes.Consultas.VisualizarFilme;
@@ -13,6 +14,7 @@ namespace WebApi.Filmes
     {
         private readonly INovoFilmeComando _novoFilme;
         private readonly IEditarFilmeComando _editarFilme;
+        private readonly IExcluirFilmeComando _excluirFilme;
 
         private readonly IListarFilmesConsulta _listarFilmes;
         private readonly IVisualizarFilmeConsulta _visualizarFilme;
@@ -20,12 +22,14 @@ namespace WebApi.Filmes
         public FilmesController(
             INovoFilmeComando novoFilme,
             IEditarFilmeComando editarFilme,
+            IExcluirFilmeComando excluirFilme,
 
             IListarFilmesConsulta listarFilmes,
             IVisualizarFilmeConsulta visualizarFilme)
         {
             _novoFilme = novoFilme;
             _editarFilme = editarFilme;
+            _excluirFilme = excluirFilme;
 
             _listarFilmes = listarFilmes;
             _visualizarFilme = visualizarFilme;
@@ -45,11 +49,10 @@ namespace WebApi.Filmes
         public IEnumerable<ListarFilmesDto> ListarFilmes() =>
             _listarFilmes.Executar();
 
-
         [HttpGet("{id}")]
         public IActionResult VisualizarFilme(int id)
         {
-            var retorno = _visualizarFilme.Exetuar(id, out var sucesso);
+            var retorno = _visualizarFilme.Executar(id, out var sucesso);
             if (sucesso)
                 return Ok(retorno);
 
@@ -64,6 +67,16 @@ namespace WebApi.Filmes
                 return Ok(retorno);
 
             return BadRequest(retorno);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult ExcluirFilme(int id)
+        {
+            var retorno = _excluirFilme.Executar(id);
+            if (retorno)
+                return Ok();
+
+            return BadRequest();
         }
     }
 }
