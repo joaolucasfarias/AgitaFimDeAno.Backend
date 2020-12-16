@@ -7,36 +7,62 @@ namespace Domain.Filmes
     public sealed class Filme : AggregateRoot
     {
         public Nome Nome { get; private set; }
+        public Url Foto { get; private set; }
+        public Data DataDeLancamento { get; private set; }
         public Descricao Descricao { get; private set; }
+        public Nota Nota { get; private set; }
+        public Url PerfilNoImdb { get; private set; }
+        public Genero Genero { get; private set; }
 
         public void ModificarId(int novoId) =>
             Id = novoId;
 
-        public void Editar(Filme filme)
+        public void Editar(Filme outro)
         {
-            Nome = filme.Nome;
-            Descricao = filme.Descricao;
+            Nome = outro.Nome;
+            Descricao = outro.Descricao;
+            Foto = outro.Foto;
+            DataDeLancamento = outro.DataDeLancamento;
+            Nota = outro.Nota;
+            PerfilNoImdb = outro.PerfilNoImdb;
+            Genero = outro.Genero;
         }
 
-        private Filme(int id) : base(id)
-        {
-        }
-
-        private Filme(Nome nome, Descricao descricao) : this(0)
+        private Filme(Nome nome, Url foto, Data dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero) : base(0)
         {
             Nome = nome;
+            Foto = foto;
+            DataDeLancamento = dataDeLancamento;
             Descricao = descricao;
+            Nota = nota;
+            PerfilNoImdb = perfilNoImdb;
+            Genero = genero;
         }
 
-        public static Filme Novo(Nome nome, Descricao descricao)
+        public static Filme Novo(Nome nome, Url foto, Data dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero)
         {
             if (nome is null)
                 throw new ArgumentNullException(nameof(nome));
 
-            if (descricao is null)
-                throw new ArgumentNullException(nameof(nome));
+            if (foto is null)
+                throw new ArgumentNullException(nameof(foto));
 
-            return new Filme(nome, descricao);
+            if (dataDeLancamento is null)
+                throw new ArgumentNullException(nameof(dataDeLancamento));
+
+            if (descricao is null)
+                throw new ArgumentNullException(nameof(descricao));
+
+            if (nota is null)
+                throw new ArgumentNullException(nameof(nota));
+
+            if (perfilNoImdb is null)
+                throw new ArgumentNullException(nameof(perfilNoImdb));
+
+            if (genero is null)
+                throw new ArgumentNullException(nameof(genero));
+
+            return new Filme(nome, foto, dataDeLancamento, descricao, nota, perfilNoImdb, genero);
         }
     }
 }
