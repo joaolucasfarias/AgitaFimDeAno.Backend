@@ -21,7 +21,7 @@ namespace Application.Filmes.Consultas.ListasFilmes
                         DtLancamento = f.DataDeLancamento,
                         Descricao = f.Descricao,
                         Nota = f.Nota,
-                        UrlImbd = f.PerfilNoImdb,
+                        UrlImdb = f.PerfilNoImdb,
                         Genero = f.Genero
                     })
                 .ToList();
