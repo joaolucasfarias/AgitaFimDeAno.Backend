@@ -23,11 +23,11 @@ namespace WebApi.Filmes
         [HttpPost]
         public IActionResult NovoFilme([FromBody] NovoFilmeDto dto)
         {
-            var resultado = _novoFilme.Executar(dto, out var mensagem);
-            if (resultado)
-                return Ok(mensagem);
+            var filmeCriado = _novoFilme.Executar(dto, out var sucesso);
+            if (sucesso)
+                return Ok(filmeCriado);
 
-            return BadRequest(mensagem);
+            return BadRequest(filmeCriado);
         }
 
         [HttpGet]

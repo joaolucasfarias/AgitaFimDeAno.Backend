@@ -2,6 +2,6 @@
 {
     public interface INovoFilmeComando
     {
-        bool Executar(NovoFilmeDto dto, out string mensagem);
+        FilmeCriadoDto Executar(NovoFilmeDto dto, out bool sucesso);
     }
 }
