@@ -10,14 +10,14 @@ namespace Persistence.Filmes
     {
         public override bool Adicionar(Filme objeto)
         {
-            objeto.ModificarId(Filmes.Count + 1);
+            objeto.ModificarId(++UltimoId);
             Filmes.Add(objeto);
             return true;
         }
 
         public override bool Editar(Filme objeto)
         {
-            var filme = Filmes.FirstOrDefault(f => f == objeto);
+            var filme = Filmes.FirstOrDefault(f => f.Equals(objeto));
             if (filme is null || filme.Id == 0)
                 return false;
 

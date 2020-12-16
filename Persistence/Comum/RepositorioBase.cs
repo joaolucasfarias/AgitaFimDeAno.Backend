@@ -8,6 +8,7 @@ namespace Persistence.Comum
     public abstract class RepositorioBase<T> : IRepositorio<T> where T : AggregateRoot
     {
         protected IList<Filme> Filmes;
+        protected int UltimoId;
 
         protected RepositorioBase() =>
             Filmes ??= new List<Filme>();

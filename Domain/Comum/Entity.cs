@@ -21,12 +21,6 @@ namespace Domain.Comum
             Id.GetHashCode();
 
         public bool Equals(Entity outro) =>
-            outro != null && !(Id == 0 || outro.Id == 0) && Id.Equals(outro.Id);
-
-        public static bool operator ==(Entity x, Entity y) =>
-            x.Equals(y);
-
-        public static bool operator !=(Entity x, Entity y) =>
-            !(x == y);
+            outro != null && !(Id == 0 || outro.Id == 0) && Id == outro.Id;
     }
 }
