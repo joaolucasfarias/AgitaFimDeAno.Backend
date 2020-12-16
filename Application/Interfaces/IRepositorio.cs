@@ -1,4 +1,5 @@
-﻿using Domain.Comum;
+﻿using Application.Filmes.Consultas.ListasFilmes;
+using Domain.Comum;
 using System.Collections.Generic;
 
 namespace Application.Interfaces
@@ -11,7 +12,7 @@ namespace Application.Interfaces
 
         bool Excluir(int id);
 
-        IEnumerable<T> Listar();
+        IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         T Carregar(int id);
     }

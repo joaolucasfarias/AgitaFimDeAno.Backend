@@ -4,6 +4,6 @@ namespace Application.Filmes.Consultas.ListasFilmes
 {
     public interface IListarFilmesConsulta
     {
-        IEnumerable<ListarFilmesDto> Executar();
+        IEnumerable<ListarFilmesDto> Executar(ParametrosDePesquisa parametrosDePesquisa);
     }
 }

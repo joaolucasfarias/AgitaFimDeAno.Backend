@@ -46,8 +46,12 @@ namespace WebApi.Filmes
         }
 
         [HttpGet]
-        public IEnumerable<ListarFilmesDto> ListarFilmes() =>
-            _listarFilmes.Executar();
+        public IEnumerable<ListarFilmesDto> ListarFilmes(
+            [FromQuery(Name = "_page")] int pagina,
+            [FromQuery(Name = "_limit")] int quantidade,
+            [FromQuery(Name = "q")] string titulo,
+            [FromQuery] string genero) =>
+            _listarFilmes.Executar(new ParametrosDePesquisa(pagina, quantidade, titulo, genero));
 
         [HttpGet("{id}")]
         public IActionResult VisualizarFilme(int id)

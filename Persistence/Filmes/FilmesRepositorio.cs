@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Filmes.Consultas.ListasFilmes;
+using Application.Interfaces;
 using Domain.Filmes;
 using Persistence.Comum;
 using System.Collections.Generic;
@@ -37,8 +38,22 @@ namespace Persistence.Filmes
             return Filmes.Remove(filme);
         }
 
-        public override IEnumerable<Filme> Listar() =>
-            Filmes.OrderBy(f => f.Id);
+        public override IEnumerable<Filme> Listar(ParametrosDePesquisa parametrosDePesquisa)
+        {
+            var filmes = Filmes as IEnumerable<Filme>;
+
+            if (!string.IsNullOrWhiteSpace(parametrosDePesquisa.Titulo))
+                filmes = filmes.Where(f => f.Nome.Valor.Contains(parametrosDePesquisa.Titulo));
+
+            if (!string.IsNullOrWhiteSpace(parametrosDePesquisa.Genero))
+                filmes = filmes.Where(f => f.Genero.Valor.Contains(parametrosDePesquisa.Genero));
+
+            filmes = filmes
+                .Skip((parametrosDePesquisa.Pagina - 1) * parametrosDePesquisa.Quantidade)
+                .Take(parametrosDePesquisa.Quantidade);
+
+            return filmes;
+        }
 
         public override Filme Carregar(int id) =>
             id == 0

@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Filmes.Consultas.ListasFilmes;
+using Application.Interfaces;
 using Domain.Comum;
 using Domain.Filmes;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Persistence.Comum
 
         public abstract bool Excluir(int id);
 
-        public abstract IEnumerable<T> Listar();
+        public abstract IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         public abstract T Carregar(int id);
     }

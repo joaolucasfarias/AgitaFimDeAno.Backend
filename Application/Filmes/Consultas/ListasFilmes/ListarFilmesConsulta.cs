@@ -11,8 +11,8 @@ namespace Application.Filmes.Consultas.ListasFilmes
         public ListarFilmesConsulta(IFilmesRepositorio filmesRepositorio) =>
             _repositorio = filmesRepositorio;
 
-        public IEnumerable<ListarFilmesDto> Executar() =>
-            _repositorio.Listar().Select(f =>
+        public IEnumerable<ListarFilmesDto> Executar(ParametrosDePesquisa parametrosDePesquisa) =>
+            _repositorio.Listar(parametrosDePesquisa).Select(f =>
                     new ListarFilmesDto
                     {
                         Id = f.Id,
