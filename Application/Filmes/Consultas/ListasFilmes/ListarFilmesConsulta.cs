@@ -6,13 +6,13 @@ namespace Application.Filmes.Consultas.ListasFilmes
 {
     public sealed class ListarFilmesConsulta : IListarFilmesConsulta
     {
-        private readonly IFilmesRepositorio _filmesRepositorio;
+        private readonly IFilmesRepositorio _repositorio;
 
         public ListarFilmesConsulta(IFilmesRepositorio filmesRepositorio) =>
-            _filmesRepositorio = filmesRepositorio;
+            _repositorio = filmesRepositorio;
 
         public IEnumerable<ListarFilmesDto> Executar() =>
-            _filmesRepositorio.Listar().Select(f =>
+            _repositorio.Listar().Select(f =>
                     new ListarFilmesDto
                     {
                         Id = f.Id,

@@ -6,10 +6,10 @@ namespace Application.Filmes.Comandos.NovoFilme
 {
     public sealed class NovoFilmeComando : INovoFilmeComando
     {
-        private readonly IFilmesRepositorio _filmesRepositorio;
+        private readonly IFilmesRepositorio _repositorio;
 
         public NovoFilmeComando(IFilmesRepositorio filmesRepositorio) =>
-            _filmesRepositorio = filmesRepositorio;
+            _repositorio = filmesRepositorio;
 
         public FilmeCriadoDto Executar(NovoFilmeDto dto, out bool sucesso)
         {
@@ -43,7 +43,7 @@ namespace Application.Filmes.Comandos.NovoFilme
 
             var filme = Filme.Novo(nome, foto, dataDeLancamento, descricao, nota, imdb, genero);
 
-            sucesso = _filmesRepositorio.Adicionar(filme);
+            sucesso = _repositorio.Adicionar(filme);
 
             return new FilmeCriadoDto
             {
