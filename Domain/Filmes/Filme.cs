@@ -28,7 +28,7 @@ namespace Domain.Filmes
             Genero = outro.Genero;
         }
 
-        private Filme(Nome nome, Url foto, DataDeLancamento dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero) : base(0)
+        private Filme(int id, Nome nome, Url foto, DataDeLancamento dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero) : base(id)
         {
             Nome = nome;
             Foto = foto;
@@ -62,7 +62,36 @@ namespace Domain.Filmes
             if (genero is null)
                 throw new ArgumentNullException(nameof(genero));
 
-            return new Filme(nome, foto, dataDeLancamento, descricao, nota, perfilNoImdb, genero);
+            return new Filme(0, nome, foto, dataDeLancamento, descricao, nota, perfilNoImdb, genero);
+        }
+
+        public static Filme Existente(int id, Nome nome, Url foto, DataDeLancamento dataDeLancamento, Descricao descricao, Nota nota, Url perfilNoImdb, Genero genero)
+        {
+            if (id <= 0)
+                throw new ArgumentNullException(nameof(id));
+
+            if (nome is null)
+                throw new ArgumentNullException(nameof(nome));
+
+            if (foto is null)
+                throw new ArgumentNullException(nameof(foto));
+
+            if (dataDeLancamento is null)
+                throw new ArgumentNullException(nameof(dataDeLancamento));
+
+            if (descricao is null)
+                throw new ArgumentNullException(nameof(descricao));
+
+            if (nota is null)
+                throw new ArgumentNullException(nameof(nota));
+
+            if (perfilNoImdb is null)
+                throw new ArgumentNullException(nameof(perfilNoImdb));
+
+            if (genero is null)
+                throw new ArgumentNullException(nameof(genero));
+
+            return new Filme(id, nome, foto, dataDeLancamento, descricao, nota, perfilNoImdb, genero);
         }
     }
 }

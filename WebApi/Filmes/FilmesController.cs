@@ -1,4 +1,5 @@
-﻿using Application.Filmes.Comandos.NovoFilme;
+﻿using Application.Filmes.Comandos.EditarFilme;
+using Application.Filmes.Comandos.NovoFilme;
 using Application.Filmes.Consultas.ListasFilmes;
 using Application.Filmes.Consultas.VisualizarFilme;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,21 @@ namespace WebApi.Filmes
     public class FilmesController : ControllerBase
     {
         private readonly INovoFilmeComando _novoFilme;
+        private readonly IEditarFilmeComando _editarFilme;
 
         private readonly IListarFilmesConsulta _listarFilmes;
         private readonly IVisualizarFilmeConsulta _visualizarFilme;
 
         public FilmesController(
             INovoFilmeComando novoFilme,
+            IEditarFilmeComando editarFilme,
 
             IListarFilmesConsulta listarFilmes,
             IVisualizarFilmeConsulta visualizarFilme)
         {
             _novoFilme = novoFilme;
+            _editarFilme = editarFilme;
+
             _listarFilmes = listarFilmes;
             _visualizarFilme = visualizarFilme;
         }
@@ -29,11 +34,11 @@ namespace WebApi.Filmes
         [HttpPost]
         public IActionResult NovoFilme([FromBody] NovoFilmeDto dto)
         {
-            var filme = _novoFilme.Executar(dto, out var sucesso);
+            var retorno = _novoFilme.Executar(dto, out var sucesso);
             if (sucesso)
-                return Ok(filme);
+                return Ok(retorno);
 
-            return BadRequest(filme);
+            return BadRequest(retorno);
         }
 
         [HttpGet]
@@ -44,11 +49,21 @@ namespace WebApi.Filmes
         [HttpGet("{id}")]
         public IActionResult VisualizarFilme(int id)
         {
-            var filme = _visualizarFilme.Exetuar(id, out var sucesso);
+            var retorno = _visualizarFilme.Exetuar(id, out var sucesso);
             if (sucesso)
-                return Ok(filme);
+                return Ok(retorno);
 
-            return BadRequest(filme);
+            return BadRequest(retorno);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult EditarFilme([FromRoute] int id, [FromBody] EditarFilmeDto dto)
+        {
+            var retorno = _editarFilme.Executar(id, dto, out var sucesso);
+            if (sucesso)
+                return Ok(retorno);
+
+            return BadRequest(retorno);
         }
     }
 }
