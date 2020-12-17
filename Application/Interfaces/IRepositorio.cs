@@ -13,5 +13,7 @@ namespace Application.Interfaces
         IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         T Carregar(int id);
+
+        bool Excluir(int id);
     }
 }

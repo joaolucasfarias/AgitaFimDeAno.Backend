@@ -21,5 +21,7 @@ namespace Persistence.Comum
         public abstract IEnumerable<T> Listar(ParametrosDePesquisa parametrosDePesquisa);
 
         public abstract T Carregar(int id);
+
+        public abstract bool Excluir(int id);
     }
 }

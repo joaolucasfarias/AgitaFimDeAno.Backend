@@ -47,5 +47,17 @@ namespace Persistence.Filmes
             id == 0
                 ? null
                 : Filmes.FirstOrDefault(f => f.Id == id);
+
+        public override bool Excluir(int id)
+        {
+            if (id == 0)
+                return false;
+
+            var filme = Filmes.FirstOrDefault(f => f.Id == id);
+            if (filme is null)
+                return false;
+
+            return Filmes.Remove(filme);
+        }
     }
 }
